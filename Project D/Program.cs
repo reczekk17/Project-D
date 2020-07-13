@@ -42,7 +42,9 @@ namespace Project_D
         };
 
 
-            
+            var fastercar = new List<Car>();
+            var slowercar = new List<Car>();
+
 
 
 
@@ -60,7 +62,7 @@ namespace Project_D
             Console.WriteLine("2. Wyswietl czasy okrazen wedlug klasy samochodu");
             Console.WriteLine("3. Symulacja okrazenia");
             Console.WriteLine("4. Porownaj okrazenie");
-            Console.WriteLine(carlist[0].ID);
+            
             int opcja = Convert.ToInt32(Console.ReadLine());
 
 
@@ -230,6 +232,202 @@ namespace Project_D
                             break;
                     }
                     break;
+                case 3:
+                    Console.WriteLine("Podaj wage samochodu");
+                    double waga = Convert.ToDouble(Console.ReadLine());
+                    Console.WriteLine("Podaj moc samochodu(KM)");
+                    double moc = Convert.ToDouble(Console.ReadLine());
+
+                    double ratio2 = waga / moc;
+
+                    double roznica = 0;
+
+                    bool done = false;
+                    
+                    foreach(Car car in carlist)
+                    {
+                        roznica = Math.Abs(car.ratio - ratio2);
+                        if (roznica <= 0.2)
+                        {
+                            Console.WriteLine(roznica);
+                            Console.WriteLine("Twoj samochod powinien osiagnac czas okolo {0} ", car.czas2);
+                            done = true;
+                            break;
+                        }
+                        
+                    }
+                    
+                    foreach (Car car in carlist)
+                    {
+                        roznica = Math.Abs(car.ratio - ratio2);
+                        if (roznica <= 0.5 & roznica > 0.2 & done == false)
+                        {
+                            Console.WriteLine(roznica);
+                            Console.WriteLine("Twoj samochod powinien osiagnac czas okolo2 {0} ", car.czas2);
+                            done = true;
+                            break;
+                        }
+                        
+                    }
+                    if (done)
+                        break;
+                    foreach (Car car in carlist)
+                    {
+                        roznica = Math.Abs(car.ratio - ratio2);
+                        if (roznica <= 0.75 & roznica>0.5 & done == false)
+                        {
+                            Console.WriteLine(roznica);
+                            Console.WriteLine("Twoj samochod powinien osiagnac w przyblizeniu3 {0} ", car.czas2);
+                            done = true;
+                            break;
+                        }
+                        
+                    }
+                    foreach (Car car in carlist)
+                    {
+                        roznica = Math.Abs(car.ratio - ratio2);
+                        if (roznica <= 1.25 & roznica >0.75 & done == false)
+                        {
+                            Console.WriteLine(roznica);
+                            Console.WriteLine("Twoj samochód w przyblizeniu moze osiagnac czas4 {0}", car.czas2);
+                            Console.WriteLine("!!! Z powodu braku mozliwosci porownania, osiagniety czas moze sie duzo roznic od podanego");
+                            done = true;
+                            break;
+                        }
+                        
+                    }
+
+                    foreach (Car car in carlist)
+                    {
+                        roznica = Math.Abs(car.ratio - ratio2);
+
+                        if (roznica > 1.25 && done == false)
+                        {
+                            Console.WriteLine("Niestety nie posiadamy odpowiednich danych aby moc podac przyblizony czas");
+                            done = true;
+                            break;
+                        }
+
+                    }
+                    Console.ReadLine();
+                    break;
+                case 4:
+
+                    Console.WriteLine("Podaj minute swojego okrazenia");
+                    string min = Console.ReadLine();
+                    Console.WriteLine("Podaj sekundy swojego okrazenia");
+                    string sek = Console.ReadLine();
+
+                    string czasOkr2 = min + sek;
+
+                    
+
+                    int czasOkr = Convert.ToInt32(czasOkr2);
+                    
+
+                    carlist.Sort((x, y) => x.czas.CompareTo(y.czas));
+
+                    int i = 0;
+
+                    Console.WriteLine("Twoj czas to " + min + ":" + sek);
+
+                    while (fastercar.Count<=3 & slowercar.Count<=3 & i<20)
+                    {
+
+
+                        if (czasOkr < carlist[0].czas)
+                        {
+                            for (int j = 0; j <= 2; j++)
+                            {
+                                
+                                slowercar.Add(carlist[(j)]);
+                            }
+                            Console.WriteLine("Marka | Model | Klasa | Czas");
+                            foreach (Car car in slowercar)
+                            {
+
+                                Console.WriteLine(car.marka + " " + car.model + " " + car.klasa + " " + car.czas2);
+                            }
+                            break;
+                        }
+
+                        if(czasOkr>carlist[i].czas & czasOkr < carlist[i + 1].czas)
+                        {
+                            
+                            for (int j=0; j <= 2; j++)
+                            {
+                                fastercar.Add(carlist[(i-j)]);
+                                slowercar.Add(carlist[(i+1)+j]);
+                            }
+                            Console.WriteLine("Wolniejsze okrazenia:");
+                            Console.WriteLine("Marka | Model | Klasa | Czas");
+                            foreach (Car car in slowercar)
+                            {
+
+                                Console.WriteLine(car.marka + " " + car.model + " " + car.klasa + " " + car.czas2);
+                            }
+                            Console.WriteLine();
+                            Console.WriteLine("Szybsze okrazenia");
+                            Console.WriteLine("Marka | Model | Klasa | Czas");
+                            foreach (Car car in fastercar)
+                            {
+
+                                Console.WriteLine(car.marka + " " + car.model + " "+car.klasa+" "+ car.czas2);
+                            }
+                            break;
+                        }
+                        if (czasOkr > carlist[20].czas)
+                        {
+                            
+                            for (int j = 0; j <= 2; j++)
+                            {
+
+                                fastercar.Add(carlist[(20-j)]);
+                            }
+                            foreach (Car car in fastercar)
+                            {
+
+                                Console.WriteLine(car.marka + " " + car.model + " " + car.czas2);
+                            }
+
+                            break;
+                        }
+                        
+                        
+                        i++;
+                    }
+
+                    
+
+                    Console.ReadLine();
+                    
+                    
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    break;
+
+
+
+
+
+                    
+
             }
             Console.ReadLine();
         }
