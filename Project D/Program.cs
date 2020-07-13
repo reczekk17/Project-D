@@ -43,7 +43,8 @@ namespace Project_D
 
 
             var fastercar = new List<Car>();
-            var slowercar = new List<Car>();
+            var slowercar = new List<Car>(); //listy uzywane do zbierania a potem wypisywania najszybszych i najwolniejszych czasow
+
 
 
 
@@ -94,7 +95,7 @@ namespace Project_D
                     string stop2 = "0";
                     string stop3 = "0";
                     string stop4 = "0";
-                    string stop5 = "0";
+                    string stop5 = "0";         //stop to top(czyli czas) zapisany w stringu
 
                     
 
@@ -104,7 +105,7 @@ namespace Project_D
 
                         if (top1 > car.czas)
                         {
-                            top1 = car.czas;
+                            top1 = car.czas;        
                             stop1 = car.czas2;
                             marka1 = car.marka;
                             model1 = car.model;
@@ -238,7 +239,7 @@ namespace Project_D
                     Console.WriteLine("Podaj moc samochodu(KM)");
                     double moc = Convert.ToDouble(Console.ReadLine());
 
-                    double ratio2 = waga / moc;
+                    double ratio2 = waga / moc;  //najlatwiej porownac potencjal samochodu przez stosunek masy do mocy, wiec szukam najblizszego ratio z istniejacych juz samochodow i wypisuje jego czas jako najblizszy
 
                     double roznica = 0;
 
@@ -317,15 +318,15 @@ namespace Project_D
                     string min = Console.ReadLine();
                     Console.WriteLine("Podaj sekundy swojego okrazenia");
                     string sek = Console.ReadLine();
-
-                    string czasOkr2 = min + sek;
+                    
+                    string czasOkr2 = min + sek;            //2 stringi tworza jeden uzywany do wypisywania czasu w odpowiednim formacie
 
                     
 
-                    int czasOkr = Convert.ToInt32(czasOkr2);
+                    int czasOkr = Convert.ToInt32(czasOkr2);  //string polaczony z dwoch przekonwertowany na int, dzieki ktoremu moge porownac czasy
                     
 
-                    carlist.Sort((x, y) => x.czas.CompareTo(y.czas));
+                    carlist.Sort((x, y) => x.czas.CompareTo(y.czas)); //sortuje liste zeby moc latwiej porownywac(tak wiem, moglem to zrobic juz w poprzednim punkcie)
 
                     int i = 0;
 
@@ -335,7 +336,7 @@ namespace Project_D
                     {
 
 
-                        if (czasOkr < carlist[0].czas)
+                        if (czasOkr < carlist[0].czas)  //na poczatku sprawdzam czy podany czas nie jest tym najszybszym z istniejacej juz lsity, jesli tak to nie ma po co wypisywac szybszych
                         {
                             for (int j = 0; j <= 2; j++)
                             {
@@ -376,7 +377,7 @@ namespace Project_D
                             }
                             break;
                         }
-                        if (czasOkr > carlist[20].czas)
+                        if (czasOkr > carlist[20].czas) //na koncu sprawdzam czy podany czas nie jest tym najwolniejszym
                         {
                             
                             for (int j = 0; j <= 2; j++)
